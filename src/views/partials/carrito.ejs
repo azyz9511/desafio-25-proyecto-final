@@ -1,41 +1,49 @@
-<div class=" col-12 col-lg-3 align-items-center justify-content-center" style="margin-top:2%">
+<div class=" col-12 col-lg-4 align-items-center justify-content-center" style="margin-top:2%">
     <div class="bg-light border border-secondary rounded shadow p-3 mb-5"> 
-        <% if(!carrito){ %>
-            <h2>No hay carrito</h2>
-            <a href="/carrito/addCar" id="startCar" class="btn btn-success text-center">Iniciar carrito</a>
-        <% }else if(carrito.productos.length !== 0){ %>
+        <% if(!carrito || carrito.productos.length == 0){ %>
+            <h2>Carrito Vacio</h2>
+            <hr>
+            <h5>Puedes empezar a agregar productos al carrito haciendo click sobre el icono 
+                <img width="25" title="Agregar al carrito" src="/icon/addCar.png">
+            </h5>
+        <% }else { %>
             <table class="table text-secondary">
                 <tr>
-                    <td colspan="3"> <h2 class="text-center text-secondary">Carrito</h2> </td>
-                    <td colspan="2"> <a href="/carrito/delCar" class="btn btn-danger text-center">Eliminar carrito</a> </td>
+                    <td colspan="5"> <h2 class="text-center text-secondary">Carrito</h2> </td>
                 </tr>
                 <tr>
                     <td> <b>Foto</b> </td>
-                    <td> <b>Nombre</b> </td>
                     <td> <b>descripción</b> </td>
                     <td> <b>Precio</b> </td>
-                    <td> <b>Accion</b> </td>
+                    <td> <b>Categoria</b> </td>
+                    <td> <b>Cantidad</b> </td>
                 </tr>
             <% for (let i = 0; i < carrito.productos.length; i++) { %>
                 <tr>
                     <td> <img width="70" src=<%= carrito.productos[i].foto %> > </td>
-                    <td> <%= carrito.productos[i].nombre %> </td>
                     <td> <%= carrito.productos[i].descripcion %> </td>
                     <td> $<%= carrito.productos[i].precio %> </td>
-                    <td> <a href="/carrito/delProd/<%= carrito.productos[i].timestamp %>" class="btn btn-outline-danger text-center">Eliminar del carrito</a> </td>
+                    <td> <%= carrito.productos[i].categoria %> </td>
+                    <td> 
+                        <a href="/carrito/delProd/<%= email %>/<%= carrito.productos[i].id %>" style="text-decoration: none;">
+                            <img width="18" title="Eliminar producto" src="/icon/remove.png">
+                        </a> 
+                        &nbsp;&nbsp;  5   &nbsp;&nbsp;
+                        <a href="/productos/delete/<%= productos[i].id %>" style="text-decoration: none;">
+                            <img width="18" title="Eliminar producto" src="/icon/add.png">
+                        </a> 
+                    </td>
                 </tr>
             <% } %>
                 <tr>
                     <td colspan="5"> 
                         <div align="center">
-                            <a href="/carrito/finCar/<%= user.nombre %>/<%= user.email %>" class="btn btn-success text-center">Realizar pedido</a> </td>
+                            <a href="/carrito/finCar/<%= user.nombre %>/<%= user.email %>" class="btn btn-success text-center" style="margin-right: 100px;">Realizar pedido</a> 
+                            <a href="/carrito/delCar/<%= email %>" class="btn btn-danger text-center">Vaciar carrito</a>
                         </div>
+                    </td>
                 </tr>
             </table>
-        <% } else {%>
-            <h3>Carrito vacio</h3>
-            <h3>Ya puedes agregarle productos</h3>
-            <td> <a href="/carrito/delCar" class="btn btn-outline-danger text-center">Eliminar carrito</a> </td>
         <% } %>
     </div>
 </div>

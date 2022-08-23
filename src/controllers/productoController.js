@@ -20,7 +20,6 @@ const productoController = {
                     productos = await productoService.getProductsService();
                 }
                 res.render('pages/productos',{productos, filt});
-                // res.send(productos);
             }catch(e){
                 console.log(`Ha ocurrido el siguiente error: ${e}`);
             }

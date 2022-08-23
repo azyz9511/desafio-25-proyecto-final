@@ -4,7 +4,7 @@ const carritoController = {
     verifyCarrito : async (req, res) => {
             try{
                 const data = await carritoService.verCarService(req.params.email);
-                return data;
+                res.send(data);
             }catch(e){
                 console.log(`Ha ocurrido el siguiente error: ${e}`);
             }
@@ -12,7 +12,7 @@ const carritoController = {
     delCarrito : async (req, res) => {
             try{
                 const data = await carritoService.delCarService(req.params.email);
-                return data;
+                res.redirect('/');
             }catch(e){
                 console.log(`Ha ocurrido el siguiente error: ${e}`);
             }
@@ -28,7 +28,7 @@ const carritoController = {
     addProdCar : async (req, res) => {
             try{
                 const data = await carritoService.addProdCarService(req.params.email, req.params.idProduct);
-                return data;
+                res.redirect('/');
             }catch(e){
                 console.log(`Ha ocurrido el siguiente error: ${e}`);
             }
@@ -36,7 +36,7 @@ const carritoController = {
     delProdCar : async (req, res) => {
             try{
                 const data = await carritoService.deleteProdCarService(req.params.email,req.params.id);
-                return data;
+                res.redirect('/');
             }catch(e){
                 console.log(`Ha ocurrido el siguiente error: ${e}`);
             }

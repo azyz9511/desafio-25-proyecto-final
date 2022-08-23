@@ -27,7 +27,7 @@ class Car{
             await this.connectDB();
             const carrito = await carritoSchema.find({email : email});
             await mongoose.disconnect();
-            if(carrito){
+            if(carrito.length !== 0){
                 return carrito;
             }else{
                 const fyh = new Date();
@@ -51,7 +51,7 @@ class Car{
         try{
             await this.connectDB();
             const car = await carritoSchema.find({email : email});
-            if(car){
+            if(car.length !== 0){
                 await carritoSchema.deleteOne({email : email});
                 mongoose.disconnect();
                 return 'Carrito eliminado con exito';
@@ -106,12 +106,12 @@ class Car{
             let carrito = await this.listCar(email);
             mongoose.disconnect();
             
-            if(carrito){
-                const producto = carrito.productos.find((producto) => producto.timestamp == id);
+            if(carrito.length !== 0){
+                const producto = carrito.productos.find((producto) => producto.id == id);
                 if(producto){
                     await this.connectDB();
                     await carritoSchema.updateOne({email: email},{$pull: {
-                        productos: {timestamp : producto.timestamp}
+                        productos: {id : producto.id}
                     }});
                     mongoose.disconnect();
                     return `Producto eliminado del carrito del usuario ${email} con exito`;
