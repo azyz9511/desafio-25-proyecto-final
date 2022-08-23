@@ -1,0 +1,31 @@
+<div class="col-12 col-lg-6 align-items-center justify-content-center" style="margin-top:2%">
+    <div class="bg-light border border-secondary rounded shadow p-3 mb-5"> 
+        <% if(products.length == 0){ %>
+            <h2>No hay productos</h2>
+        <% }else{ %>
+            <table class="table text-secondary">
+                <tr>
+                    <td colspan="6"> <h2 class="text-center text-secondary">Productos</h2> </td>
+                </tr>
+                <tr>
+                    <td> <b>Foto</b> </td>
+                    <td> <b>Código</b> </td>
+                    <td> <b>Nombre</b> </td>
+                    <td> <b>descripción</b> </td>
+                    <td> <b>Precio</b> </td>
+                    <td> <b>Accion</b> </td>
+                </tr>
+            <% for (let i = 0; i < products.length; i++) { %>
+                <tr>
+                    <td> <img width="70" src=<%= products[i].foto %> > </td>
+                    <td> <%= products[i].codigo %> </td>
+                    <td> <%= products[i].nombre %> </td>
+                    <td> <%= products[i].descripcion %> </td>
+                    <td> $<%= products[i].precio %> </td>
+                    <td> <a href="/carrito/addProd/<%= products[i].id %>" class="btn btn-outline-primary text-center">Agregar al carrito</a> </td>
+                </tr>
+            <% }%>
+            </table>
+        <% }%>
+    </div>
+</div>
