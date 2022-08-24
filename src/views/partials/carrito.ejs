@@ -16,7 +16,7 @@
                     <td> <b>descripción</b> </td>
                     <td> <b>Precio</b> </td>
                     <td> <b>Categoria</b> </td>
-                    <td> <b>Cantidad</b> </td>
+                    <td> <b>Accion</b> </td>
                 </tr>
             <% for (let i = 0; i < carrito.productos.length; i++) { %>
                 <tr>
@@ -26,12 +26,12 @@
                     <td> <%= carrito.productos[i].categoria %> </td>
                     <td> 
                         <a href="/carrito/delProd/<%= email %>/<%= carrito.productos[i].id %>" style="text-decoration: none;">
-                            <img width="18" title="Eliminar producto" src="/icon/remove.png">
+                            <img width="18" title="Eliminar producto" src="/icon/eliminar.png">
                         </a> 
-                        &nbsp;&nbsp;  5   &nbsp;&nbsp;
+                        <!-- &nbsp;&nbsp;  5   &nbsp;&nbsp;
                         <a href="/productos/delete/<%= productos[i].id %>" style="text-decoration: none;">
                             <img width="18" title="Eliminar producto" src="/icon/add.png">
-                        </a> 
+                        </a>  -->
                     </td>
                 </tr>
             <% } %>

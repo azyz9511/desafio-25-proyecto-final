@@ -23,6 +23,13 @@ class Chat{
     async addMessage(mensaje){
         try{
             await this.connectDB();
+            const lastId = await mensajeSchema.find().sort({id:-1}).limit(1);
+            if(lastId.length !== 0){
+                mensaje.id = parseInt(lastId[0].id) + 1;
+            }else{
+                mensaje.id = 1;
+            }
+            console.log(mensaje);
             await mensajeSchema.create(mensaje);
             mongoose.disconnect();
             return 'Mensaje guardado con exito';

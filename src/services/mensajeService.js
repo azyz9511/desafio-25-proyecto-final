@@ -1,8 +1,15 @@
 const mensajeDao = require('../database/daos/mensajeDao');
+const userService = require('./usuarioService');
 
 const mensajeService = {
     newMesService : async (mensaje) => {
             try{
+                const user = await userService.findUserService(mensaje.email);
+                if(user.tipoUser){
+                    mensaje.tipoUser = 'Administrador';
+                }else{
+                    mensaje.tipoUser = "Cliente";
+                }
                 const data = await mensajeDao.addMessage(mensaje);
                 return data;
             }catch(e){

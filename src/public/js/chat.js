@@ -1,61 +1,53 @@
-const socket = io.connect();
+const socket = io();
 
-// funcionalidad de carrito
-// Crear carrito
-// ---------------------------------------------------------------------------------------------------------------------------------------
+const sendMess = document.getElementById('sendMess');
+const texto = document.getElementById('texto');
+const divMensajes = document.getElementById('mensajes');
 
-
-// chat
-// -----------------------------------------------------------------------------------------------------------------------------------------
-
-const formChat = document.getElementById('formChat');
-formChat.addEventListener('submit',(e) => {
+sendMess.addEventListener('submit',(e) => {
     e.preventDefault();
     const fyh = new Date();
     const mensaje = { 
-        id:Date.now(),
-        author: {
-            id: document.getElementById('id').value, 
-            nombre: document.getElementById('nombre').value, 
-            apellido: document.getElementById('apellido').value, 
-            edad: document.getElementById('edad').value, 
-            alias: document.getElementById('alias').value,
-            avatar: document.getElementById('avatar').value
-        },
-        text: document.getElementById('texto').value,
-        fyh: `${fyh.getDate()}/${(fyh.getMonth() + 1)}/${fyh.getFullYear()} ${fyh.getHours()}:${fyh.getMinutes()}:${fyh.getSeconds()}`
+        id: 0,
+        email: email,
+        tipoUser: '',
+        fyh: `${fyh.getDate()}/${(fyh.getMonth() + 1)}/${fyh.getFullYear()} ${fyh.getHours()}:${fyh.getMinutes()}:${fyh.getSeconds()}`,
+        text: texto.value
     };
 
     socket.emit('nuevoMensaje', mensaje);
     socket.on('historialGlobal',data => {
-        const html = data
-        .map((elem, index) => {
-            return `<div>
-            <b style='color:blue;'>${elem.author.id}</b>
-            <span style='color:brown'>[${elem.fyh}] : </span>
-            <i style='color:green'>${elem.text}</i>
-            </div>`
-        })
-        .join(' ');
-        document.getElementById('mensajes').innerHTML = html;
+        render(data);
     });
-    document.getElementById('texto').value = '';
+    texto.value = '';
 });
 
 socket.on('historialChat', data => {
     if(data.length !== 0){
-        const html = data
-        .map((elem, index) => {
-            return `<div>
-            <b style='color:blue;'>${elem.author.id}</b>
-            <span style='color:brown'>[${elem.fyh}] : </span>
-            <i style='color:green'>${elem.text}</i>
-            </div>`
-        })
-        .join(' ');
-        document.getElementById('mensajes').innerHTML = html;
+        render(data);
     }else{
-        document.getElementById('mensajes').innerHTML = '';
+        divMensajes.innerHTML = '';
         formChat.reset();
     }
 });
+
+function render(data){
+    let color = '';
+    let admin = '';
+    const html = data
+        .map((elem, index) => {
+            if(elem.tipoUser === 'Administrador'){
+                color = 'rgba(240, 13, 13, 0.945)';
+                admin = '(admin)';
+            }else{
+                color = '#0B40B2';
+            }
+            return `<div>
+                <b style='color:${color};'>${elem.email}${admin}</b>
+                <span>[${elem.fyh}] : </span>
+                <b style='color:#08E31C;'><i>${elem.text}</i></b>
+            </div>`
+        })
+        .join(' ');
+        divMensajes.innerHTML = html;
+}

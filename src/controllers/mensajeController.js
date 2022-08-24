@@ -10,11 +10,17 @@ const mensajeController = {
             }
         },
     getMessages : async (req, res) => {
-            try{
-                const data = await mensajeController.getMesService();
-                return data;
-            }catch(e){
-                console.log(`Ha ocurrido el siguiente error: ${e}`);
+            if(req.isAuthenticated()){
+                try{
+                    const email = req.session.passport.user;
+                    const data = await mensajeService.getMesService();
+                    res.render('pages/mensajes',{data, email});
+                    return data;
+                }catch(e){
+                    console.log(`Ha ocurrido el siguiente error: ${e}`);
+                }
+            }else{
+                res.redirect('/login');
             }
         }
 }

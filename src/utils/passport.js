@@ -1,8 +1,7 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 
-const Usuario = require('../database/daos/usuarioDao');
-const usuario = new Usuario();
+const usuario = require('../services/usuarioService');
 const {newUser} = require('../utils/nodemailer');
 require('dotenv').config();
 
@@ -10,24 +9,25 @@ passport.use('registro',new localStrategy(
     {passReqToCallback: true},
     async (req, username, password, done) => {
         try{
-            const existe = await usuario.findUser(username);
+            const existe = await usuario.findUserService(username);
             if(existe){
                 return done(null, false)
             }else{
-                await usuario.addUser(req.body);
+                await usuario.addUserService(req.body);
                 // await newUser(req.body);
                 return done(null, {email: username})
             }
         }catch(e){
             console.log(`Ha ocurrido el siguiente error: ${e}`);
         }
+            
     }
 ))
 
 passport.use('login',new localStrategy(
     async (username, password, done) => {
         try{
-            const existe = await usuario.findUserLogin(username,password);
+            const existe = await usuario.findUserLoginService(username,password);
             if(!existe){
                 return done(null, false);
             }else{
@@ -46,7 +46,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (email, done) => {
     try{
-        const userDZ = await usuario.findUser(email);
+        const userDZ = await usuario.findUserService(email);
         done(null, userDZ)
     }catch(e){
         console.log(`Ha ocurrido el siguiente error: ${e}`);

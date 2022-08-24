@@ -17,7 +17,7 @@ const app = express();
 const httpserver = new HttpServer(app);
 const io = new IOServer(httpserver);
 
-// importacion e instancia de la clase Chat
+// importacion de servicio de mensajes
 const chat = require('./src/services/mensajeService');
 
 // settings
@@ -36,6 +36,10 @@ app.use('/',router);
 
 // sockets
 io.on('connection',async (socket) => {
+
+    socket.on('probando', data => {
+        console.log(data);
+    })
 
     //socket para chat
     socket.on('nuevoMensaje',async data => {

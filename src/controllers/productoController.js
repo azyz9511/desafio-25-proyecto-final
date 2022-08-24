@@ -10,18 +10,22 @@ const productoController = {
             }
         },
     getProducts : async (req, res) => {
-            try{
-                let productos;
-                let filt = null;
-                if(req.query.filtro){
-                    productos = await productoService.findByCategoryService(req.query.filtro);
-                    filt= req.query.filtro;
-                }else{
-                    productos = await productoService.getProductsService();
+            if(req.isAuthenticated()){
+                try{
+                    let productos;
+                    let filt = null;
+                    if(req.query.filtro){
+                        productos = await productoService.findByCategoryService(req.query.filtro);
+                        filt= req.query.filtro;
+                    }else{
+                        productos = await productoService.getProductsService();
+                    }
+                    res.render('pages/productos',{productos, filt});
+                }catch(e){
+                    console.log(`Ha ocurrido el siguiente error: ${e}`);
                 }
-                res.render('pages/productos',{productos, filt});
-            }catch(e){
-                console.log(`Ha ocurrido el siguiente error: ${e}`);
+            }else{
+                res.redirect('/login');
             }
         },
     getProductById : async (req, res) => {

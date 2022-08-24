@@ -23,13 +23,13 @@ class Usuario{
     
     async addUser(user){
         try{
+            await this.connectDB();
             const newUser = {
                 email: user.username,
                 nombre: user.nombre,
                 numTel: user.numtel,
                 password: await bCrypt.encryptPass(user.password)
             };
-            await this.connectDB();
             await usuarioSchema.create(newUser);
             mongoose.disconnect();
         }catch (e){
@@ -65,4 +65,5 @@ class Usuario{
 
 }
 
-module.exports = Usuario;
+const usuario = new Usuario();
+module.exports = usuario;

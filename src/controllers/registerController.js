@@ -1,5 +1,4 @@
 const passport = require('passport');
-// const passport = require('../utils/passport');
 
 const registerController = {
     registro : (req, res) => {

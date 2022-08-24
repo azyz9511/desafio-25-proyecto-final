@@ -1,6 +1,4 @@
-const Usuario = require('../database/daos/usuarioDao');
-const usuario = new Usuario();
-
+const usuario = require('../database/daos/usuarioDao');
 const producto = require('../services/productoService');
 const car = require('../services/carritoService');
 
