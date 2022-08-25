@@ -34,7 +34,6 @@ class Car{
                 const car = {
                     email : email,
                     fyh: `${fyh.getDate()}/${(fyh.getMonth() + 1)}/${fyh.getFullYear()} ${fyh.getHours()}:${fyh.getMinutes()}:${fyh.getSeconds()}`,
-                    dirEntrega : '',
                     productos : []
                 };
                 await this.connectDB();
@@ -84,11 +83,12 @@ class Car{
 
             if(carrito && productoId){
                 await this.connectDB();
-                productoId.timestamp = Date.now();
+                productoId.idUnico = Date.now();
                 const fyh = new Date();
                 await carritoSchema.updateOne({email: email},{$push: {
                     productos: productoId
-                }},{$set: {
+                }});
+                await carritoSchema.updateOne({email: email},{$set: {
                     fyh: `${fyh.getDate()}/${(fyh.getMonth() + 1)}/${fyh.getFullYear()} ${fyh.getHours()}:${fyh.getMinutes()}:${fyh.getSeconds()}`
                 }});
                 mongoose.disconnect();
@@ -100,18 +100,22 @@ class Car{
         }
     }
         
-    async deleteProdCar(email, id){
+    async deleteProdCar(email, idUnico){
         try{
             await this.connectDB();
             let carrito = await this.listCar(email);
             mongoose.disconnect();
             
             if(carrito.length !== 0){
-                const producto = carrito.productos.find((producto) => producto.id == id);
+                const fyh = new Date();
+                const producto = carrito.productos.find((producto) => producto.idUnico == idUnico);
                 if(producto){
                     await this.connectDB();
                     await carritoSchema.updateOne({email: email},{$pull: {
-                        productos: {id : producto.id}
+                        productos: {idUnico : idUnico}
+                    }});
+                    await carritoSchema.updateOne({email: email},{$set: {
+                        fyh: `${fyh.getDate()}/${(fyh.getMonth() + 1)}/${fyh.getFullYear()} ${fyh.getHours()}:${fyh.getMinutes()}:${fyh.getSeconds()}`
                     }});
                     mongoose.disconnect();
                     return `Producto eliminado del carrito del usuario ${email} con exito`;

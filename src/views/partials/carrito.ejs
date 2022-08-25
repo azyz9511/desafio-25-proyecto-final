@@ -25,20 +25,21 @@
                     <td> $<%= carrito.productos[i].precio %> </td>
                     <td> <%= carrito.productos[i].categoria %> </td>
                     <td> 
-                        <a href="/carrito/delProd/<%= email %>/<%= carrito.productos[i].id %>" style="text-decoration: none;">
+                        <a href="/carrito/delProd/<%= email %>/<%= carrito.productos[i].idUnico %>" style="text-decoration: none;">
                             <img width="18" title="Eliminar producto" src="/icon/eliminar.png">
-                        </a> 
-                        <!-- &nbsp;&nbsp;  5   &nbsp;&nbsp;
-                        <a href="/productos/delete/<%= productos[i].id %>" style="text-decoration: none;">
-                            <img width="18" title="Eliminar producto" src="/icon/add.png">
-                        </a>  -->
+                        </a>
                     </td>
                 </tr>
             <% } %>
                 <tr>
+                    <td colspan="5">
+                        <i style="color: rgb(12, 196, 12); font-size: 14px;">Ultima actividad: <%= carrito.fyh %></i>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="5"> 
                         <div align="center">
-                            <a href="/carrito/finCar/<%= user.nombre %>/<%= user.email %>" class="btn btn-success text-center" style="margin-right: 100px;">Realizar pedido</a> 
+                            <button onclick="sendPedido()" class="btn btn-success text-center" style="margin-right: 100px;">Realizar pedido</button> 
                             <a href="/carrito/delCar/<%= email %>" class="btn btn-danger text-center">Vaciar carrito</a>
                         </div>
                     </td>

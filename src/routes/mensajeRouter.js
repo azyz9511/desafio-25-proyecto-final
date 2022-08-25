@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const mensajeController = require('../controllers/mensajeController');
+const isAuth = require('../middlewares/isAuth');
 
 router.post('/', mensajeController.newMessage);
-router.get('/', mensajeController.getMessages);
+router.get('/', isAuth, mensajeController.getMessages);
 
 module.exports = router;
