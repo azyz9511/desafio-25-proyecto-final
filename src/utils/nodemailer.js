@@ -34,8 +34,7 @@ async function newOrder(nombre,email,carrito){
     let productos = ``;
     let total = 0;
     for (let i = 0; i < car.length; i++) {
-        let producto = `<img width="70" src=${car[i].foto}> <br>
-                        <b> Descripcion: </b> ${car[i].descripcion} <br>
+        let producto = `<b> Descripcion: </b> ${car[i].descripcion} <br>
                         <b> Precio: </b> $${car[i].precio} <br>
                         <b> Categoria: </b> ${car[i].categoria} <br><br>`;
         productos = productos + producto
