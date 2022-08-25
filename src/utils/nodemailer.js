@@ -11,6 +11,7 @@ const transporter = createTransport({
 });
  
 async function newUser(data){
+    console.log(data);
     try {
         const info =  await transporter.sendMail({
             from: 'Ecommerce en Node.js',
@@ -21,8 +22,6 @@ async function newUser(data){
                 <b>Email:</b> ${data.username}<br>
                 <b>Password:</b> ${data.password}<br>
                 <b>Nombre:</b> ${data.nombre}<br>
-                <b>Dirección:</b> ${data.direccion}<br>
-                <b>Edad:</b> ${data.edad}<br>
                 <b>Numero Telefonico:</b> ${data.numtel}<br>`
         });
     } catch (e) {
@@ -36,10 +35,9 @@ async function newOrder(nombre,email,carrito){
     let total = 0;
     for (let i = 0; i < car.length; i++) {
         let producto = `<img width="70" src=${car[i].foto}> <br>
-                        <b> Codigo: </b> ${car[i].codigo} <br>
-                        <b> Nombre: </b> ${car[i].nombre} <br>
                         <b> Descripcion: </b> ${car[i].descripcion} <br>
-                        <b> Precio: </b> $${car[i].precio} <br><br>`;
+                        <b> Precio: </b> $${car[i].precio} <br>
+                        <b> Categoria: </b> ${car[i].categoria} <br><br>`;
         productos = productos + producto
         total = total + car[i].precio;
     }

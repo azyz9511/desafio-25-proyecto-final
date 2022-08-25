@@ -29,4 +29,13 @@
             <a href="/mensajes" class="btn btn-primary text-center">Ir al centro de mensajes</a>
         </div>
     </div>
+    <% if(user.tipoUser){ %>
+        <div class="bg-light border border-secondary rounded shadow p-3 mb-5">
+            <h2 class="text-center text-secondary">Gestionar Productos</h2>
+            <hr>
+            <div align="center">
+                <a href="/productos" class="btn btn-success text-center">Ir a productos</a>
+            </div>
+        </div>
+    <% } %>
 </div>

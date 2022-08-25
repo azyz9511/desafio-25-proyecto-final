@@ -6,7 +6,7 @@ const sesion = session({
     store: connectMongo.create({
       mongoUrl: process.env.URLDB,
       mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
-      ttl: 600
+      ttl: process.env.TIMESPIRACION
     }),
     secret: process.env.SECRETDB,
     resave: false,

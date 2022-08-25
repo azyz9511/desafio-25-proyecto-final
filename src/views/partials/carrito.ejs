@@ -39,7 +39,7 @@
                 <tr>
                     <td colspan="5"> 
                         <div align="center">
-                            <button onclick="sendPedido()" class="btn btn-success text-center" style="margin-right: 100px;">Realizar pedido</button> 
+                            <a href="/carrito/finCar/<%= user.nombre %>/<%= user.email %>" class="btn btn-success text-center" style="margin-right: 100px;">Realizar pedido</a> 
                             <a href="/carrito/delCar/<%= email %>" class="btn btn-danger text-center">Vaciar carrito</a>
                         </div>
                     </td>

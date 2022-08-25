@@ -130,7 +130,7 @@ class Car{
         }
     }
 
-    async carFin(nombre,email){
+    async carFin(nombre, email){
         try{
             const carrito = await this.listCar(email);
             await newOrder(nombre,email,carrito);

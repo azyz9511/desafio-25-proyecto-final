@@ -14,7 +14,7 @@ passport.use('registro',new localStrategy(
                 return done(null, false)
             }else{
                 await usuario.addUserService(req.body);
-                // await newUser(req.body);
+                await newUser(req.body);
                 return done(null, {email: username})
             }
         }catch(e){
