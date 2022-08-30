@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const usuarioSchema = require('../models/usuarioSchema');
 const bCrypt = require('../../utils/bcryptPass');
-require('dotenv').config();
+const NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config({ path: `.env.${NODE_ENV}` });
 
 class Usuario{
     

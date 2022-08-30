@@ -1,6 +1,7 @@
 const session = require('express-session');
 const connectMongo = require('connect-mongo');
-require('dotenv').config();
+const NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config({ path: `.env.${NODE_ENV}` });
 
 const sesion = session({
     store: connectMongo.create({

@@ -3,7 +3,6 @@ const localStrategy = require('passport-local').Strategy;
 
 const usuario = require('../services/usuarioService');
 const {newUser} = require('../utils/nodemailer');
-require('dotenv').config();
 
 passport.use('registro',new localStrategy(
     {passReqToCallback: true},

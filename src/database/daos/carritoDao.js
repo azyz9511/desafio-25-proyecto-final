@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const carritoSchema = require('../models/carritoSchema');
 const product = require('./productoDao');
 const {newOrder} = require('../../utils/nodemailer');
-require('dotenv').config();
+const NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config({ path: `.env.${NODE_ENV}` });
 
 class Car{
 

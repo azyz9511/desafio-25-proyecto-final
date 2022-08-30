@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const mensajeSchema = require('../models/mensajeSchema');
-require('dotenv').config();
+const NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config({ path: `.env.${NODE_ENV}` });
 
 class Chat{
     

@@ -6,13 +6,16 @@ const router = require('./src/routes/routes');
 const passport = require('passport');
 const session = require('./src/middlewares/session');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
+
+// Inicializacion de variable NODE_ENV para luego elegir entorno de desarrollo o produccion
+const NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config({ path: `.env.${NODE_ENV}` });
 
 //requerimos configuracion de passport
 require('./src/utils/passport');
 
 //Inicializacion
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 const app = express();
 const httpserver = new HttpServer(app);
 const io = new IOServer(httpserver);
@@ -60,7 +63,7 @@ io.on('connection',async (socket) => {
 });
 
 //inicio de servidor
-
 httpserver.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
+    console.log(`environment ${NODE_ENV}`);
 });
