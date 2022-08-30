@@ -6,6 +6,7 @@ const mensajeSchema = new mongoose.Schema({
     tipoUser: {type: String, require: true, max:100},
     fyh: {type: String, require: true, max:100},
     text: {type: String, require: true, max:200},
+    respuesta: []
 });
 
 module.exports = mongoose.model('mensajes', mensajeSchema);

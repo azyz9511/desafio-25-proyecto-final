@@ -40,11 +40,6 @@ app.use('/',router);
 // sockets
 io.on('connection',async (socket) => {
 
-    socket.on('probando', data => {
-        console.log(data);
-    })
-
-    //socket para chat
     socket.on('nuevoMensaje',async data => {
         try{
             await chat.newMesService(data);
@@ -54,12 +49,24 @@ io.on('connection',async (socket) => {
             console.log(`Ha ocurrido el siguiente error: ${e}`);
         }
     });
+
+    socket.on('responderMensaje', async data => {
+        try{
+            await chat.messResService(data.idMensaje, data.mensaje);
+            const mensajes = await chat.getMesService();
+            io.sockets.emit('historialGlobal',mensajes);
+        }catch (e){
+            console.log(`Ha ocurrido el siguiente error: ${e}`);
+        }
+    })
+
     try{
         const mensajes = await chat.getMesService();
         socket.emit('historialChat',mensajes);
     }catch (e){
         console.log(`Ha ocurrido el siguiente error: ${e}`);
     }
+
 });
 
 //inicio de servidor

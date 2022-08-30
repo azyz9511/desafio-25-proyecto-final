@@ -18,6 +18,14 @@ const mensajeController = {
             }catch(e){
                 console.log(`Ha ocurrido el siguiente error: ${e}`);
             }
+        },
+    getMessagesById : async (req, res) => {
+            try{
+                const data = await mensajeService.getMessByIdService(req.params.id);
+                res.send(data)
+            }catch(e){
+                console.log(`Ha ocurrido el siguiente error: ${e}`);
+            }
         }
 }
 

@@ -49,6 +49,30 @@ class Chat{
         }
     }
 
+    async getMessById(id){
+        try{
+            await this.connectDB();
+            const mensaje = await mensajeSchema.find({id:id});
+            mongoose.disconnect();
+            return mensaje[0];
+        }catch (e){
+            return `Ha ocurrido el siguiente error: ${e}`;
+        }
+    }
+
+    async addResMessage(idMess, resMess){
+        try{
+            await this.connectDB();
+            await mensajeSchema.updateOne({id: idMess},{$push: {
+                respuesta: resMess
+            }});
+            mongoose.disconnect();
+            return 'Mensaje respondido con exito';
+        }catch (e){
+            console.log(`Ha ocurrido el siguiente error: ${e}`);
+        }
+    }
+
 }
 
 const chat = new Chat();
