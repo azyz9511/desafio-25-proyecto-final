@@ -33,20 +33,19 @@ socket.on('historialChat', data => {
 
 function render(data){
     let color = '';
-    let admin = '';
     const html = data
         .map((elem, index) => {
-            if(elem.tipoUser === 'Administrador'){
-                color = 'rgba(240, 13, 13, 0.945)';
-                admin = '(admin)';
-            }else{
-                color = '#0B40B2';
+            let admin = '';
+            let user = elem.email;
+            if(elem.tipoUser == 'Administrador'){
+                admin = 'Administrador';
+                user = '';
             }
             return `<div>
-                <b style='color:${color};'>${elem.email}${admin}</b>
+                <span style="color: blue">${user}<b>${admin}</b></span>
                 <span>[${elem.fyh}] : </span>
-                <b style='color:#08E31C;'><i>${elem.text}</i></b>
-            </div>`
+                <b><i>${elem.text}</i></b>
+            </div><br>`
         })
         .join(' ');
         divMensajes.innerHTML = html;

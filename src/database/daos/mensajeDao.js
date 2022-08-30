@@ -30,7 +30,6 @@ class Chat{
             }else{
                 mensaje.id = 1;
             }
-            console.log(mensaje);
             await mensajeSchema.create(mensaje);
             mongoose.disconnect();
             return 'Mensaje guardado con exito';
